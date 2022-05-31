@@ -1,0 +1,11 @@
+import React from "react";
+
+export default function Dashboard() {
+  return (
+    <>
+      <div>index</div>
+      <div>index</div>
+      <div>index</div>
+    </>
+  );
+}

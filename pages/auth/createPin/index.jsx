@@ -1,13 +1,62 @@
-import React from "react";
+import axios from "../../../utils/axios";
+import React, { useEffect, useState } from "react";
+import cookies from "next-cookies";
+import { useRouter } from "next/router";
 import "../../../styles/auth.module.css";
 import Image from "next/image";
 
-export default function CreatePin() {
+export async function getServerSideProps(context) {
+  const dataCookies = cookies(context);
+  const id = dataCookies.id;
+  return {
+    props: {
+      data: id,
+    },
+  };
+}
+
+export default function CreatePin(props) {
+  const [pin, setPin] = useState({});
+  const addPin = (e) => {
+    if (e.target.value) {
+      const nextSibling = document.getElementById(
+        `pin-${parseInt(e.target.name, 10) + 1}`
+      );
+
+      if (nextSibling !== null) {
+        nextSibling.focus();
+      }
+    }
+    setPin({ ...pin, [`pin${e.target.name}`]: e.target.value });
+  };
+  console.log(pin);
+
+  const onSubmit = async () => {
+    const allPin =
+      pin.pin1 + pin.pin2 + pin.pin3 + pin.pin4 + pin.pin5 + pin.pin6;
+    // console.log(typeof Number(allPin));
+    try {
+      const result = await axios.patch(
+        `/user/pin/${props.data}`,
+        String(allPin)
+      );
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+    // router.push("/user/dashboard");
+  };
   return (
     <>
       <div className="container-fluid">
-        <div className="row">
-          <div className="col-md-7">
+        <div className="row auth">
+          <div
+            className="col-md-7"
+            style={{
+              height: "100%",
+              padding: "5% 0px 12% 0px",
+            }}
+          >
             <br />
             <br />
             <div className="container">
@@ -29,7 +78,10 @@ export default function CreatePin() {
               </p>
             </div>
           </div>
-          <div className="col-md-5 bg-light align-self-stretch">
+          <div
+            className="col-md-5 bg-light align-self-stretch"
+            style={{ height: "100%", padding: "5% 0px 25% 0px" }}
+          >
             <div className="container">
               <div className="text-end">
                 <br />
@@ -50,33 +102,88 @@ export default function CreatePin() {
                 <br />
                 <br />
                 <br />
-                <form>
-                  <div className="row text-center">
-                    <div className="col-1">
-                      <input type="text" class="form-control" id="pin1" />
-                    </div>
-                    <div className="col-1">
-                      <input type="text" class="form-control" id="pin2" />
-                    </div>
-                    <div className="col-1">
-                      <input type="text" class="form-control" id="pin3" />
-                    </div>
-                    <div className="col-1">
-                      <input type="text" class="form-control" id="pin4" />
-                    </div>
-                    <div className="col-1">
-                      <input type="text" class="form-control" id="pin5" />
-                    </div>
-                    <div className="col-1">
-                      <input type="text" class="form-control" id="pin6" />
-                    </div>
+
+                <div className="row text-center">
+                  <div className="col-1">
+                    <input
+                      type="text"
+                      className="form-control"
+                      maxLength={1}
+                      id="pin-1"
+                      onChange={(e) => {
+                        addPin(e);
+                      }}
+                      name="1"
+                    />
                   </div>
-                  <br />
-                  <br />
-                  <div className="d-grid gap-2">
-                    <button className="btn btn-primary">Confirm</button>
+                  <div className="col-1">
+                    <input
+                      type="text"
+                      className="form-control"
+                      maxLength={1}
+                      id="pin-2"
+                      onChange={(e) => {
+                        addPin(e);
+                      }}
+                      name="2"
+                    />
                   </div>
-                </form>
+                  <div className="col-1">
+                    <input
+                      type="text"
+                      className="form-control"
+                      maxLength={1}
+                      id="pin-3"
+                      onChange={(e) => {
+                        addPin(e);
+                      }}
+                      name="3"
+                    />
+                  </div>
+                  <div className="col-1">
+                    <input
+                      type="text"
+                      className="form-control"
+                      maxLength={1}
+                      id="pin-4"
+                      onChange={(e) => {
+                        addPin(e);
+                      }}
+                      name="4"
+                    />
+                  </div>
+                  <div className="col-1">
+                    <input
+                      type="text"
+                      className="form-control"
+                      maxLength={1}
+                      id="pin-5"
+                      onChange={(e) => {
+                        addPin(e);
+                      }}
+                      name="5"
+                    />
+                  </div>
+                  <div className="col-1">
+                    <input
+                      type="text"
+                      className="form-control"
+                      maxLength={1}
+                      id="pin-6"
+                      onChange={(e) => {
+                        addPin(e);
+                      }}
+                      name="6"
+                    />
+                  </div>
+                </div>
+                <br />
+                <br />
+                <div className="d-grid gap-2">
+                  <button className="btn btn-primary" onClick={onSubmit}>
+                    Confirm
+                  </button>
+                </div>
               </div>
             </div>
           </div>
