@@ -17,7 +17,11 @@ export default function Navbar() {
               <div className="row">
                 <div className="col-2">
                   <Image
-                    src={`https://res.cloudinary.com/dd1uwz8eu/image/upload/v1653276449/${user.image}`}
+                    src={
+                      user.image
+                        ? `${process.env.CLAUDINARY}/${user.image}`
+                        : "/assets/phone.png"
+                    }
                     alt=""
                     width={60}
                     height={60}

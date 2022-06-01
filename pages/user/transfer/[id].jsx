@@ -36,6 +36,8 @@ export async function getServerSideProps(context) {
 
 export default function transferUser(props) {
   const router = useRouter();
+  const [message, setMessage] = useState("");
+  const [isError, setIsError] = useState(false);
   console.log(props);
   const user = props.data;
   const [form, setForm] = useState({
@@ -51,14 +53,27 @@ export default function transferUser(props) {
     try {
       const result = await axios.post("/transaction/transfer", form);
       console.log(result);
+      setIsError(false);
+      setMessage(result.data.msg);
     } catch (error) {
       console.log(error);
+      setIsError(true);
+      setMessage(error.response.data.msg);
     }
   };
 
   return (
     <>
       <Layout tittle="Dashboard">
+        {!message ? null : isError ? (
+          <div className="alert alert-danger" role="alert">
+            {message}
+          </div>
+        ) : (
+          <div className="alert alert-primary" role="alert">
+            {message}
+          </div>
+        )}
         <div className="card">
           <div className="card-body">
             <h4>Search Receiver</h4>

@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getUserById } from "../../../store/actions/user";
 import Modal from "react-modal";
 import Layout from "../../../component/Layout";
+import HandleChart from "../../../component/Chart";
 import cookies from "next-cookies";
 import axiosServer from "../../../utils/axiosServer";
+import Image from "next/image";
 import axios from "../../../utils/axios";
+import IconTransfer from "../../../component/Icon/Transfer";
+import { useRouter } from "next/router";
 
 export async function getServerSideProps(context) {
   try {
@@ -15,10 +20,19 @@ export async function getServerSideProps(context) {
         Authorization: `Bearer ${dataCookies.token}`,
       },
     });
+    const dataHistory = await axiosServer.get(
+      `transaction/history?page=1&limit=4&filter=MONTH`,
+      {
+        headers: {
+          Authorization: `Bearer ${dataCookies.token}`,
+        },
+      }
+    );
     return {
       props: {
         id: id,
         dataDashboard: dataDashboard.data.data,
+        dataHistory: dataHistory.data.data,
       },
     };
   } catch (error) {
@@ -35,12 +49,30 @@ export async function getServerSideProps(context) {
 }
 
 export default function Dashboard(props) {
+  const router = useRouter();
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user.data);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [topUp, setTopUp] = useState({ amount: "" });
   console.log(props);
 
-  const handleTopUp = () => {};
+  useEffect(() => {
+    getDataUserbyId();
+  }, []);
+
+  const handleChangeText = (e) => {
+    setTopUp({ ...topUp, [e.target.name]: e.target.value });
+  };
+
+  const handleTopUp = async () => {
+    const result = await axios.post("/transaction/top-up", topUp);
+    setIsOpen(false);
+    window.open(result.data.data.redirectUrl);
+  };
+
+  const getDataUserbyId = async () => {
+    await dispatch(getUserById(props.id));
+  };
 
   function openModal() {
     setIsOpen(true);
@@ -49,7 +81,6 @@ export default function Dashboard(props) {
   function closeModal() {
     setIsOpen(false);
   }
-
   return (
     <>
       <Layout tittle="Dashboard">
@@ -62,7 +93,10 @@ export default function Dashboard(props) {
                 <p>{user.noTelp}</p>
               </div>
               <div className="col-4">
-                <button className="btn btn-secondary d-grid gap-2">
+                <button
+                  className="btn btn-secondary d-grid gap-2"
+                  onClick={() => router.push(`/user/transfer/transferList`)}
+                >
                   Transfer
                 </button>
                 <button
@@ -77,36 +111,67 @@ export default function Dashboard(props) {
             </div>
           </div>
         </div>
-        <div className="card">
-          <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
-            <p className="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
-            <a href="#" className="card-link">
-              Card link
-            </a>
-            <a href="#" className="card-link">
-              Another link
-            </a>
+        <div className="row">
+          <div className="card col-md-6" style={{ margin: "15px" }}>
+            <div className="card-body">
+              <h5 className="card-title">Chart</h5>
+              <br />
+              <br />
+              <div className="row">
+                <div className="col-6 text-start">
+                  <IconTransfer color={"#1EC15F"} />
+                  <br />
+                  <small>income</small>
+                  <p>Rp.{props.dataDashboard.totalIncome}</p>
+                </div>
+                <div className="col-6 text-end">
+                  <IconTransfer color={"#FF5B37"} />
+                  <br />
+                  <small>expense</small>
+                  <p>Rp.{props.dataDashboard.totalExpense}</p>
+                </div>
+              </div>
+              <br />
+              <br />
+              <br />
+              <HandleChart dataDashboard={props.dataDashboard} />
+            </div>
           </div>
-        </div>
-        <div className="card">
-          <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
-            <p className="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
-            <a href="#" className="card-link">
-              Card link
-            </a>
-            <a href="#" className="card-link">
-              Another link
-            </a>
+          <div className="card col-md-5" style={{ margin: "15px" }}>
+            <div className="card-body">
+              <h5 className="card-title">Transfer History</h5>
+              {props.dataHistory.map((item) => (
+                <div className="card" key={item.id}>
+                  <div className="card-body">
+                    <div className="row">
+                      <div className="col-2">
+                        <Image
+                          src={
+                            item.image
+                              ? `${process.env.CLAUDINARY}/${item.image}`
+                              : "/assets/phone.png"
+                          }
+                          alt=""
+                          width={120}
+                          height={120}
+                          style={{ margin: "20px 0px" }}
+                        />
+                      </div>
+                      <div className="col-7">
+                        <h5>
+                          {item.firstName} {item.lastName}
+                        </h5>
+                        <small>{item.type}</small>
+                      </div>
+                      <div className="col-3">
+                        <small>{item.amount}</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              <br />
+            </div>
           </div>
         </div>
       </Layout>
@@ -142,14 +207,16 @@ export default function Dashboard(props) {
           <h1>Add Product</h1>
           <h1>Add Product</h1>
           <h1>Add Product</h1>
-          <h1>Add Product</h1>
-          <h1>Add Product</h1>
-          <h1>Add Product</h1>
-          <h1>Add Product</h1>
-          <h1>Add Product</h1>
-          <h1>Add Product</h1>
-          <h1>Add Product</h1>
-          <h1>Add Product</h1>
+          <input
+            type="text"
+            name="amount"
+            className="form-control-plaintext col-md-4"
+            placeholder="00.000"
+            onChange={handleChangeText}
+          />
+          <button className="btn btn-primary" onClick={() => handleTopUp()}>
+            Continue
+          </button>
         </div>
       </Modal>
     </>

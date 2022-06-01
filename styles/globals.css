@@ -87,3 +87,7 @@ a {
 .pagination > li:last-child > span {
   border-radius: unset;
 }
+
+.bg-light {
+  background-color: #e5e5e5;
+}
