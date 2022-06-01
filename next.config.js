@@ -5,6 +5,8 @@ const nextConfig = {
     domains: ["res.cloudinary.com"],
   },
   env: {
+    CLAUDINARY:
+      "https://res.cloudinary.com/dd1uwz8eu/image/upload/v1653276449/",
     URL_BACKEND: "https://fazzpay.herokuapp.com",
     URL_BACKEND2: "https://jsonplaceholder.typicode.com",
   },

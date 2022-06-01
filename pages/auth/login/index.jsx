@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { getUserById } from "../../../store/actions/user";
 import axios from "../../../utils/axios";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
@@ -6,6 +8,7 @@ import "../../../styles/auth.module.css";
 import Image from "next/image";
 
 export default function Login() {
+  const dispatch = useDispatch();
   const router = useRouter();
   const [form, setForm] = useState({ email: "", password: "" });
 
@@ -23,7 +26,8 @@ export default function Login() {
       if (!result.data.data.pin) {
         router.push("/auth/createPin");
       } else {
-        console.log("gagal");
+        await dispatch(getUserById(result.data.data.id));
+        router.push("/user/dashboard");
       }
     } catch (error) {
       console.log(error);

@@ -6,17 +6,31 @@ import "../../../styles/auth.module.css";
 import Image from "next/image";
 
 export async function getServerSideProps(context) {
-  const dataCookies = cookies(context);
-  const id = dataCookies.id;
-  return {
-    props: {
-      data: id,
-    },
-  };
+  try {
+    const dataCookies = cookies(context);
+    const id = dataCookies.id;
+    return {
+      props: {
+        data: id,
+      },
+    };
+  } catch (error) {
+    return {
+      redirect: {
+        destination:
+          error.response.status === 403
+            ? "/auth/login"
+            : `/error?msg=${error.response.data.msg}`,
+        permanent: false,
+      },
+    };
+  }
 }
 
 export default function CreatePin(props) {
+  const router = useRouter();
   const [pin, setPin] = useState({});
+  const [form, setForm] = useState({ pin: null });
   const addPin = (e) => {
     if (e.target.value) {
       const nextSibling = document.getElementById(
@@ -29,22 +43,18 @@ export default function CreatePin(props) {
     }
     setPin({ ...pin, [`pin${e.target.name}`]: e.target.value });
   };
-  console.log(pin);
 
   const onSubmit = async () => {
     const allPin =
       pin.pin1 + pin.pin2 + pin.pin3 + pin.pin4 + pin.pin5 + pin.pin6;
-    // console.log(typeof Number(allPin));
     try {
-      const result = await axios.patch(
-        `/user/pin/${props.data}`,
-        String(allPin)
-      );
+      setForm({ pin: Number(allPin) });
+      const result = await axios.patch(`/user/pin/${props.data}`, form);
       console.log(result);
+      router.push("/user/dashboard");
     } catch (error) {
       console.log(error);
     }
-    // router.push("/user/dashboard");
   };
   return (
     <>
