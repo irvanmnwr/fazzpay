@@ -10,15 +10,19 @@ export default function Sidebar() {
   const [menuActive, setMenuActive] = useState("dashboard");
   return (
     <>
-      <nav
+      <div
         id="sidebarMenu"
-        className="col-md-3 col-lg-2 d-md-block bg-white sidebar collapse"
+        className="col-lg-12 d-md-block bg-white sidebar_style"
       >
-        <div className="position-sticky pt-3" style={{ height: "700px" }}>
+        <div className="position-sticky pt-3">
           <ul className="nav nav-pills flex-column mb-auto">
             <li className="nav-item">
               <div
-                className="col-md-8"
+                className={
+                  menuActive === "dashboard"
+                    ? "col-md-11 sidebar_actived"
+                    : "col-md-11"
+                }
                 onClick={() => {
                   setMenuActive("dashboard");
                   router.push(`/user/dashboard`);
@@ -32,7 +36,11 @@ export default function Sidebar() {
             </li>
             <li>
               <div
-                className="col-md-8"
+                className={
+                  menuActive === "transfer"
+                    ? "col-md-11 sidebar_actived"
+                    : "col-md-11"
+                }
                 onClick={() => {
                   setMenuActive("transfer");
                   router.push(`/user/transfer/transferList`);
@@ -46,7 +54,11 @@ export default function Sidebar() {
             </li>
             <li>
               <div
-                className="col-md-8"
+                className={
+                  menuActive === "topup"
+                    ? "col-md-11 sidebar_actived"
+                    : "col-md-11"
+                }
                 onClick={() => {
                   setMenuActive("topup");
                 }}
@@ -58,6 +70,23 @@ export default function Sidebar() {
               </div>
             </li>
             <li>
+              <div
+                className={
+                  menuActive === "Profile"
+                    ? "col-md-11 sidebar_actived"
+                    : "col-md-11"
+                }
+                onClick={() => {
+                  setMenuActive("Profile");
+                }}
+              >
+                <IconUser
+                  color={menuActive === "Profile" ? "#6379F4" : "#3A3D42"}
+                />{" "}
+                Profile
+              </div>
+            </li>
+            <li className="align-bottom">
               <div
                 className="col-md-8"
                 onClick={() => {
@@ -72,7 +101,7 @@ export default function Sidebar() {
             </li>
           </ul>
         </div>
-      </nav>
+      </div>
     </>
   );
 }

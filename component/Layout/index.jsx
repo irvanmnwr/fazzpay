@@ -10,12 +10,14 @@ export default function Layout(props) {
       <Head>
         <title>{props.title}</title>
       </Head>
-      <div className="bg-light">
+      <div className="project_background">
         <Navbar />
         <div className="container">
           <div className="row" style={{ margin: "40px 0px" }}>
-            <Sidebar />
-            <div className="col-md-8">{props.children}</div>
+            <div className="col-md-3">
+              <Sidebar />
+            </div>
+            <div className="col-md-9">{props.children}</div>
           </div>
         </div>
         <Footer />

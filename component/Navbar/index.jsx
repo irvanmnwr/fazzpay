@@ -7,20 +7,20 @@ export default function Navbar() {
   console.log(user);
   return (
     <>
-      <nav className="py-4 sticky-top navbar-light bg-white">
+      <nav className="py-2 sticky-top navbar-light bg-white">
         <div className="container">
           <div className="row">
             <div className="col-8">
-              <p className="fw-bold fs-3">FazzPay</p>
+              <p className="fw-bold fs-3 navbar_logo">FazzPay</p>
             </div>
             <div className="col-4">
               <div className="row">
-                <div className="col-2">
+                <div className="col-md-6 text-end">
                   <Image
                     src={
                       user.image
                         ? `${process.env.CLAUDINARY}/${user.image}`
-                        : "/assets/phone.png"
+                        : "/assets/user.png"
                     }
                     alt=""
                     width={60}
@@ -28,11 +28,11 @@ export default function Navbar() {
                     className="img_profile"
                   />
                 </div>
-                <div className="col-10">
-                  <h5>
+                <div className="col-md-6 text-start">
+                  <h6>
                     {user.firstName} {user.lastName}
-                  </h5>
-                  <small>{user.noTelp}</small>
+                  </h6>
+                  <small className="navbar_text">{user.noTelp}</small>
                 </div>
               </div>
             </div>

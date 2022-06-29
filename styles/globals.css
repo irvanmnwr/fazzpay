@@ -15,23 +15,66 @@ a {
   box-sizing: border-box;
 }
 
-.auth {
-  background-image: url("../public/assets/authbg.png");
+.project_background {
+  background-color: #e5e5e5;
 }
 
+/* Navbar CSS */
+.navbar_logo {
+  color: #6379f4;
+  margin-top: 10px;
+}
+
+.img_profile {
+  border-radius: 25%;
+}
+
+.navbar_text {
+  padding-top: -10px;
+  color: gray;
+}
+
+/* Sidebar CSS */
+.sidebar_style {
+  border-radius: 15px;
+  padding: 20px;
+  height: "100%";
+}
+
+.sidebar_actived {
+  color: #6379f4;
+  font-weight: 700;
+}
+
+/* Dashboard CSS */
 .card {
   margin-bottom: 20px;
-  border-radius: 10%;
+  border-radius: 15px !important;
   border-color: azure;
+}
+
+.dashboard_text {
+  color: #e0e0e0;
+  margin-bottom: 0px;
+}
+
+.btn-secondary {
+  padding: 10px !important;
+  background-color: #7180d6 !important;
+  border-color: #e0e0e0 !important;
+}
+
+.bg_primary {
+  background-color: #6379f4 !important;
+}
+
+.auth {
+  background-image: url("../public/assets/authbg.png");
 }
 
 .btn-secondary {
   width: 200px;
   margin-bottom: 10px;
-}
-
-.img_profile {
-  border-radius: 50%;
 }
 
 .modal {
@@ -86,8 +129,4 @@ a {
 .pagination > li:last-child > a,
 .pagination > li:last-child > span {
   border-radius: unset;
-}
-
-.bg-light {
-  background-color: #e5e5e5;
 }

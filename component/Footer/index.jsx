@@ -3,7 +3,7 @@ import React from "react";
 export default function Footer() {
   return (
     <>
-      <footer className="py-3 bg-primary">
+      <footer className="py-3 bg_primary">
         <div className="container">
           <div className="row">
             <div className="col-md-6">

@@ -9,6 +9,7 @@ import axiosServer from "../../../utils/axiosServer";
 import Image from "next/image";
 import axios from "../../../utils/axios";
 import IconTransfer from "../../../component/Icon/Transfer";
+import IconIncome from "../../../component/Icon/Income";
 import { useRouter } from "next/router";
 
 export async function getServerSideProps(context) {
@@ -84,13 +85,13 @@ export default function Dashboard(props) {
   return (
     <>
       <Layout tittle="Dashboard">
-        <div className="card text-white bg-primary">
+        <div className="card text-white bg_primary">
           <div className="card-body">
             <div className="row">
               <div className="col-8">
-                <p>Balace</p>
+                <p className="dashboard_text">Balace</p>
                 <h2>Rp.{user.balance}</h2>
-                <p>{user.noTelp}</p>
+                <p className="dashboard_text">{user.noTelp}</p>
               </div>
               <div className="col-4">
                 <button
@@ -119,7 +120,7 @@ export default function Dashboard(props) {
               <br />
               <div className="row">
                 <div className="col-6 text-start">
-                  <IconTransfer color={"#1EC15F"} />
+                  <IconIncome color={"#1EC15F"} />
                   <br />
                   <small>income</small>
                   <p>Rp.{props.dataDashboard.totalIncome}</p>
