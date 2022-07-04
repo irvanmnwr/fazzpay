@@ -40,12 +40,10 @@ export default function Login() {
           <div
             className="col-md-7"
             style={{
-              height: "100%",
+              height: "auto",
               padding: "5% 0px 12% 0px",
             }}
           >
-            <br />
-            <br />
             <div className="container">
               <h3>ZWALLET</h3>
               <h3>App that Covering Banking Needs.</h3>
@@ -67,14 +65,10 @@ export default function Login() {
           </div>
           <div
             className="col-md-5 bg-light align-self-stretch"
-            style={{ height: "100%", padding: "5% 0px 19% 0px" }}
+            style={{ height: "auto", padding: "5% 0px 19% 0px" }}
           >
             <div className="container">
               <div className="text-end">
-                <br />
-                <br />
-                <br />
-                <br />
                 <div className="text-center">
                   <h5>
                     Start Accessing Banking Needs With All Devices and All
@@ -116,6 +110,17 @@ export default function Login() {
                   <button className="btn btn-primary" onClick={handleSubmit}>
                     login
                   </button>
+                </div>
+                <br />
+                <div className="text-center">
+                  <small>Don't have an account? Let's</small>
+                  <small
+                    style={{ color: "blue" }}
+                    onClick={() => router.push("/auth/register")}
+                  >
+                    {" "}
+                    Sign Up
+                  </small>
                 </div>
               </div>
             </div>

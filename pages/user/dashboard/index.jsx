@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserById } from "../../../store/actions/user";
-import Modal from "react-modal";
+// import Modal from "react-modal";
 import Layout from "../../../component/Layout";
 import HandleChart from "../../../component/Chart";
 import cookies from "next-cookies";
@@ -11,6 +11,7 @@ import axios from "../../../utils/axios";
 import IconTransfer from "../../../component/Icon/Transfer";
 import IconIncome from "../../../component/Icon/Income";
 import { useRouter } from "next/router";
+import Modal from "../../../component/Modal";
 
 export async function getServerSideProps(context) {
   try {
@@ -53,7 +54,7 @@ export default function Dashboard(props) {
   const router = useRouter();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.data);
-  const [modalIsOpen, setIsOpen] = useState(false);
+  const [active, setActive] = useState(false);
   const [topUp, setTopUp] = useState({ amount: "" });
   console.log(props);
 
@@ -67,7 +68,7 @@ export default function Dashboard(props) {
 
   const handleTopUp = async () => {
     const result = await axios.post("/transaction/top-up", topUp);
-    setIsOpen(false);
+    setIsOpens(false);
     window.open(result.data.data.redirectUrl);
   };
 
@@ -75,15 +76,20 @@ export default function Dashboard(props) {
     await dispatch(getUserById(props.id));
   };
 
-  function openModal() {
-    setIsOpen(true);
+  function openModals() {
+    setActive(true);
   }
 
-  function closeModal() {
-    setIsOpen(false);
-  }
   return (
     <>
+      {active ? (
+        <Modal
+          setActive={setActive}
+          handleChangeText={handleChangeText}
+          handleTopUp={handleTopUp}
+        />
+      ) : null}
+
       <Layout tittle="Dashboard">
         <div className="card text-white bg_primary">
           <div className="card-body">
@@ -103,7 +109,7 @@ export default function Dashboard(props) {
                 <button
                   className="btn btn-secondary d-grid gap-2"
                   onClick={() => {
-                    openModal();
+                    openModals();
                   }}
                 >
                   Top Up
@@ -150,7 +156,7 @@ export default function Dashboard(props) {
                           src={
                             item.image
                               ? `${process.env.CLAUDINARY}/${item.image}`
-                              : "/assets/phone.png"
+                              : "/assets/user.png"
                           }
                           alt=""
                           width={120}
@@ -158,14 +164,22 @@ export default function Dashboard(props) {
                           style={{ margin: "20px 0px" }}
                         />
                       </div>
-                      <div className="col-7">
+                      <div className="col-6">
                         <h5>
                           {item.firstName} {item.lastName}
                         </h5>
                         <small>{item.type}</small>
                       </div>
-                      <div className="col-3">
-                        <small>{item.amount}</small>
+                      <div className="col-4">
+                        <p
+                          className={
+                            item.type === "send"
+                              ? "text-end dashboard_red"
+                              : "text-end dashboard_green"
+                          }
+                        >
+                          RP. {item.amount}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -176,7 +190,7 @@ export default function Dashboard(props) {
           </div>
         </div>
       </Layout>
-      <Modal
+      {/* <Modal
         style={{
           overlay: {
             position: "fixed",
@@ -219,7 +233,7 @@ export default function Dashboard(props) {
             Continue
           </button>
         </div>
-      </Modal>
+      </Modal> */}
     </>
   );
 }

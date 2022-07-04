@@ -6,6 +6,10 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+small {
+  color: #7a7886;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -17,6 +21,7 @@ a {
 
 .project_background {
   background-color: #e5e5e5;
+  height: auto;
 }
 
 /* Navbar CSS */
@@ -38,7 +43,7 @@ a {
 .sidebar_style {
   border-radius: 15px;
   padding: 20px;
-  height: "100%";
+  height: 100%;
 }
 
 .sidebar_actived {
@@ -68,8 +73,44 @@ a {
   background-color: #6379f4 !important;
 }
 
+.dashboard_green {
+  color: green;
+  font-weight: 500;
+}
+.dashboard_red {
+  color: red;
+  font-weight: 500;
+}
+
+/* MODAL CSS */
+.modal_container {
+  position: fixed;
+  margin: 0;
+  display: block;
+  padding-left: 40%;
+  padding-top: 15%;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(65, 63, 63, 0.6);
+  z-index: 1;
+}
+
+.modal_card {
+  margin: 0;
+  align-items: center;
+  border-radius: 15px;
+  background-color: #c9c1c1;
+  padding: 20px;
+  border-width: 1;
+  border-color: gray;
+}
+
+/* TRANSFER CSS */
+
 .auth {
   background-image: url("../public/assets/authbg.png");
+  height: auto;
 }
 
 .btn-secondary {
@@ -113,8 +154,8 @@ a {
 .pagination > .active > span:hover,
 .pagination > .active > a:focus,
 .pagination > .active > span:focus {
-  background-color: #5f2eea;
-  border-color: #5f2eea;
+  background-color: #7180d6;
+  border-color: #7180d6;
   color: #d6d8e7;
   outline: none;
 }

@@ -11,7 +11,9 @@ export async function getServerSideProps(context) {
     const dataCookies = cookies(context);
     const params = context.query;
     const page = !params?.page ? 1 : params.page;
-    const search = !params.searchType ? "" : params.searchType;
+    const search = !params.search ? "" : params.search;
+    console.log(params);
+    console.log(search);
     const result = await axiosServer.get(
       `user?page=${page}&limit=5&search=${search}&sort=firstName ASC`,
       {
@@ -105,7 +107,7 @@ export default function transferList(props) {
                         src={
                           item.image
                             ? `${process.env.CLAUDINARY}/${item.image}`
-                            : "/assets/phone.png"
+                            : "/assets/user.png"
                         }
                         alt=""
                         width={60}

@@ -4,10 +4,20 @@ import IconTransfer from "../Icon/Transfer";
 import IconTopUp from "../Icon/TopUp";
 import IconUser from "../Icon/User";
 import { useRouter } from "next/router";
+import axios from "../../utils/axios";
+import Cookies from "js-cookie";
 
 export default function Sidebar() {
   const router = useRouter();
   const [menuActive, setMenuActive] = useState("dashboard");
+
+  const handleLogout = async () => {
+    await axios.post("/auth/logout");
+    Cookies.remove("token");
+    Cookies.remove("id");
+    localStorage.clear();
+    router.push("/auth/login");
+  };
   return (
     <>
       <div
@@ -78,19 +88,7 @@ export default function Sidebar() {
                 }
                 onClick={() => {
                   setMenuActive("Profile");
-                }}
-              >
-                <IconUser
-                  color={menuActive === "Profile" ? "#6379F4" : "#3A3D42"}
-                />{" "}
-                Profile
-              </div>
-            </li>
-            <li className="align-bottom">
-              <div
-                className="col-md-8"
-                onClick={() => {
-                  setMenuActive("Profile");
+                  router.push(`/user/profile`);
                 }}
               >
                 <IconUser
@@ -100,6 +98,19 @@ export default function Sidebar() {
               </div>
             </li>
           </ul>
+          <hr />
+          <div
+            className="d-flex align-items-end"
+            onClick={() => {
+              handleLogout();
+            }}
+            style={{ marginTop: "auto", paddingBottom: "1px" }}
+          >
+            <IconUser
+              color={menuActive === "Profile" ? "#6379F4" : "#3A3D42"}
+            />{" "}
+            LogOut
+          </div>
         </div>
       </div>
     </>

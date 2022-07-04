@@ -1,16 +1,18 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { getUserById } from "../../../store/actions/user";
 import axios from "../../../utils/axios";
-import "../../../styles/auth.module.css";
+import Cookies from "js-cookie";
 import { useRouter } from "next/router";
+import "../../../styles/auth.module.css";
 import Image from "next/image";
 
-export default function Register() {
+export default function ForgetPassword() {
+  const dispatch = useDispatch();
   const router = useRouter();
   const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
     email: "",
-    password: "",
+    linkDirect: "http://localhost:3000/changePassword",
   });
 
   const handleChangeText = (e) => {
@@ -20,16 +22,8 @@ export default function Register() {
   // console.log(form);
   const handleSubmit = async () => {
     try {
-      await axios.post("/auth/register", form);
-      router.push("/login");
-      // console.log(result);
-      // Cookies.set("token", result.data.data.token);
-      // Cookies.set("id", result.data.data.id);
-      // if (cek pin) {
-      //   navigate ke create pin
-      // } else {
-      //   navigate ke home
-      // }
+      const result = await axios.post("/auth/forgot-password", form);
+      console.log(result);
     } catch (error) {
       console.log(error);
     }
@@ -66,43 +60,23 @@ export default function Register() {
           </div>
           <div
             className="col-md-5 bg-light align-self-stretch"
-            style={{ height: "100%", padding: "5% 0px 17% 0px" }}
+            style={{ height: "auto", padding: "5% 0px 19% 0px" }}
           >
             <div className="container">
               <div className="text-end">
                 <div className="text-center">
                   <h5>
-                    Start Accessing Banking Needs With All Devices and All
-                    Platforms With 30.000+ Users
+                    Did You Forgot Your Password? Don’t Worry, You Can Reset
+                    Your Password In a Minutes.
                   </h5>
                   <small>
-                    Transfering money is eassier than ever, you can access
-                    Zwallet wherever you are. Desktop, laptop, mobile phone? we
-                    cover all of that for you!
+                    To reset your password, you must type your e-mail and we
+                    will send a link to your email and you will be directed to
+                    the reset password screens.
                   </small>
                 </div>
                 <br />
                 <br />
-
-                <div className="mb-3">
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="firstName"
-                    placeholder="First Name"
-                    onChange={handleChangeText}
-                  />
-                </div>
-                <br />
-                <div className="mb-3">
-                  <input
-                    type="Last Name"
-                    className="form-control"
-                    name="lastName"
-                    placeholder="Last Name"
-                    onChange={handleChangeText}
-                  />
-                </div>
                 <br />
                 <div className="mb-3">
                   <input
@@ -114,32 +88,16 @@ export default function Register() {
                   />
                 </div>
                 <br />
-                <div className="mb-3">
-                  <input
-                    type="password"
-                    className="form-control"
-                    name="password"
-                    placeholder="Password"
-                    onChange={handleChangeText}
-                  />
-                </div>
+                <small className="text-end">Back to Login Page?</small>
+                <br />
+                <br />
                 <br />
                 <div className="d-grid gap-2">
                   <button className="btn btn-primary" onClick={handleSubmit}>
-                    Register
+                    Confirm
                   </button>
-                  <br />
                 </div>
-                <div className="text-center">
-                  <small>Already have an account</small>
-                  <small
-                    style={{ color: "blue" }}
-                    onClick={() => router.push("/auth/login")}
-                  >
-                    {" "}
-                    Sign In
-                  </small>
-                </div>
+                <br />
               </div>
             </div>
           </div>
