@@ -186,13 +186,22 @@ export default function Profile(props) {
               <div className="row">
                 <div className="col-4"></div>
                 <div className="col-4 align-center">
-                  <button className="btn btn-secondary d-grid gap-2 col-12">
+                  <button
+                    className="btn btn-secondary d-grid gap-2 col-12"
+                    onClick={() => router.push("/user/editProfile/profile")}
+                  >
                     Personal Information
                   </button>
-                  <button className="btn btn-secondary d-grid gap-2 col-12">
+                  <button
+                    className="btn btn-secondary d-grid gap-2 col-12"
+                    onClick={() => router.push("/user/editProfile/password")}
+                  >
                     Change Password
                   </button>
-                  <button className="btn btn-secondary d-grid gap-2 col-12">
+                  <button
+                    className="btn btn-secondary d-grid gap-2 col-12"
+                    onClick={() => router.push("/user/editProfile/pin")}
+                  >
                     Change Pin
                   </button>
                   <button
