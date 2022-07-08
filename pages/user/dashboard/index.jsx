@@ -7,7 +7,6 @@ import HandleChart from "../../../component/Chart";
 import cookies from "next-cookies";
 import axiosServer from "../../../utils/axiosServer";
 import Image from "next/image";
-import axios from "../../../utils/axios";
 import IconTransfer from "../../../component/Icon/Transfer";
 import IconIncome from "../../../component/Icon/Income";
 import { useRouter } from "next/router";
@@ -55,22 +54,11 @@ export default function Dashboard(props) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.data);
   const [active, setActive] = useState(false);
-  const [topUp, setTopUp] = useState({ amount: "" });
   console.log(props);
 
   useEffect(() => {
     getDataUserbyId();
   }, []);
-
-  const handleChangeText = (e) => {
-    setTopUp({ ...topUp, [e.target.name]: e.target.value });
-  };
-
-  const handleTopUp = async () => {
-    const result = await axios.post("/transaction/top-up", topUp);
-    setIsOpens(false);
-    window.open(result.data.data.redirectUrl);
-  };
 
   const getDataUserbyId = async () => {
     await dispatch(getUserById(props.id));
@@ -82,13 +70,7 @@ export default function Dashboard(props) {
 
   return (
     <>
-      {active ? (
-        <Modal
-          setActive={setActive}
-          handleChangeText={handleChangeText}
-          handleTopUp={handleTopUp}
-        />
-      ) : null}
+      {active ? <Modal setActive={setActive} /> : null}
 
       <Layout tittle="Dashboard">
         <div className="card text-white bg_primary">
@@ -121,26 +103,19 @@ export default function Dashboard(props) {
         <div className="row">
           <div className="card col-md-6" style={{ margin: "15px" }}>
             <div className="card-body">
-              <h5 className="card-title">Chart</h5>
-              <br />
-              <br />
-              <div className="row">
+              <h3 className="card-title">Chart</h3>
+              <div className="row" style={{ margin: "50px 10px" }}>
                 <div className="col-6 text-start">
                   <IconIncome color={"#1EC15F"} />
-                  <br />
-                  <small>income</small>
+                  <small>INCOME</small>
                   <p>Rp.{props.dataDashboard.totalIncome}</p>
                 </div>
                 <div className="col-6 text-end">
                   <IconTransfer color={"#FF5B37"} />
-                  <br />
-                  <small>expense</small>
+                  <small>EXPENSE</small>
                   <p>Rp.{props.dataDashboard.totalExpense}</p>
                 </div>
               </div>
-              <br />
-              <br />
-              <br />
               <HandleChart dataDashboard={props.dataDashboard} />
             </div>
           </div>

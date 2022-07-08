@@ -119,7 +119,7 @@
 
 ## **Deploy**
 
-### **Enjoy your journey with Fazzpay** >> Download Link : [**Fazzpay**](https://fazzpay-acr3z20oq-irvanmnwr.vercel.app/)
+### **Enjoy your journey with Fazzpay** >> Link : [**Fazzpay**](https://fazzpay-acr3z20oq-irvanmnwr.vercel.app/)
 
 <br/>
-<hr/>                                                                                                                                                                                                                               |
+<hr/>

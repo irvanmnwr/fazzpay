@@ -3,13 +3,16 @@ import IconDashboard from "../Icon/Dashboard";
 import IconTransfer from "../Icon/Transfer";
 import IconTopUp from "../Icon/TopUp";
 import IconUser from "../Icon/User";
+import IconLogOut from "../Icon/logout";
 import { useRouter } from "next/router";
 import axios from "../../utils/axios";
 import Cookies from "js-cookie";
+import Modal from "../Modal";
 
 export default function Sidebar() {
   const router = useRouter();
   const [menuActive, setMenuActive] = useState("dashboard");
+  const [active, setActive] = useState(false);
 
   const handleLogout = async () => {
     await axios.post("/auth/logout");
@@ -18,8 +21,13 @@ export default function Sidebar() {
     localStorage.clear();
     router.push("/auth/login");
   };
+
+  function openModals() {
+    setActive(true);
+  }
   return (
     <>
+      {active ? <Modal setActive={setActive} /> : null}
       <div
         id="sidebarMenu"
         className="col-lg-12 d-md-block bg-white sidebar_style"
@@ -70,6 +78,7 @@ export default function Sidebar() {
                     : "col-md-11"
                 }
                 onClick={() => {
+                  setActive(true);
                   setMenuActive("topup");
                 }}
               >
@@ -104,12 +113,13 @@ export default function Sidebar() {
             onClick={() => {
               handleLogout();
             }}
-            style={{ marginTop: "auto", paddingBottom: "1px" }}
+            style={{
+              marginTop: "auto",
+              paddingBottom: "1px",
+              marginLeft: "2px",
+            }}
           >
-            <IconUser
-              color={menuActive === "Profile" ? "#6379F4" : "#3A3D42"}
-            />{" "}
-            LogOut
+            <IconLogOut color="#3A3D42" /> LogOut
           </div>
         </div>
       </div>

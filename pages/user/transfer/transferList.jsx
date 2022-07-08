@@ -81,7 +81,7 @@ export default function transferList(props) {
         <div className="card">
           <div className="card-body">
             <h4>Search Receiver</h4>
-            <div className="input-group mb-3">
+            <div className="input-group mb-3" style={{ margin: "20px 0px" }}>
               <span className="input-group-text" id="basic-addon1">
                 @
               </span>
@@ -93,39 +93,42 @@ export default function transferList(props) {
                 onKeyPress={handleChangeSearch}
               ></input>
             </div>
-            <br />
-            {props.data.map((item) => (
-              <div
-                className="card"
-                key={item.id}
-                onClick={() => handleTransfer(item.id)}
-              >
-                <div className="card-body">
-                  <div className="row">
-                    <div className="col-1">
-                      <Image
-                        src={
-                          item.image
-                            ? `${process.env.CLAUDINARY}/${item.image}`
-                            : "/assets/user.png"
-                        }
-                        alt=""
-                        width={60}
-                        height={60}
-                        className="img_profile"
-                      />
-                    </div>
-                    <div className="col-10">
-                      <h5>
-                        {item.firstName} {item.lastName}
-                      </h5>
-                      <small>{item.noTelp}</small>
+            <div
+              className="overflow-auto"
+              style={{ padding: "10px", height: "530px" }}
+            >
+              {props.data.map((item) => (
+                <div
+                  className="card"
+                  key={item.id}
+                  onClick={() => handleTransfer(item.id)}
+                >
+                  <div className="card-body">
+                    <div className="row">
+                      <div className="col-1">
+                        <Image
+                          src={
+                            item.image
+                              ? `${process.env.CLAUDINARY}/${item.image}`
+                              : "/assets/user.png"
+                          }
+                          alt=""
+                          width={60}
+                          height={60}
+                          className="img_profile"
+                        />
+                      </div>
+                      <div className="col-10">
+                        <h5>
+                          {item.firstName} {item.lastName}
+                        </h5>
+                        <small>{item.noTelp}</small>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
-            <br />
+              ))}
+            </div>
             <div className="col-md-10">
               <Pagination
                 previousLabel={"<<"}

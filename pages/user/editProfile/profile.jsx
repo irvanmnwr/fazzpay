@@ -45,7 +45,7 @@ export default function Password() {
   return (
     <>
       <Layout tittle="Dashboard">
-        <div className="card">
+        <div className="card" style={{ height: "700px" }}>
           <div className="card-body">
             {!message ? null : isError ? (
               <div className="alert alert-danger" role="alert">
@@ -56,7 +56,8 @@ export default function Password() {
                 {message}
               </div>
             )}
-            <h4>Change Password</h4>
+            <h4>Personal Information</h4>
+            <br />
             <br />
             <div className="col-6">
               <small>
@@ -66,10 +67,11 @@ export default function Password() {
               </small>
             </div>
             <br />
+            <br />
             {edit === false ? (
               <>
                 {" "}
-                <div className="card" style={{ height: "100%" }}>
+                <div className="card">
                   <div className="card-body">
                     <div className="row">
                       <div className="col-10">
@@ -80,7 +82,7 @@ export default function Password() {
                     </div>
                   </div>
                 </div>
-                <div className="card" style={{ height: "100%" }}>
+                <div className="card">
                   <div className="card-body">
                     <div className="row">
                       <div className="col-10">
@@ -91,7 +93,7 @@ export default function Password() {
                     </div>
                   </div>
                 </div>
-                <div className="card" style={{ height: "100%" }}>
+                <div className="card">
                   <div className="card-body">
                     <div className="row">
                       <div className="col-10">
@@ -102,7 +104,7 @@ export default function Password() {
                     </div>
                   </div>
                 </div>
-                <div className="card" style={{ height: "100%" }}>
+                <div className="card">
                   <div className="card-body">
                     <div className="row">
                       <div className="col-10">
