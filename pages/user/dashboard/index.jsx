@@ -22,7 +22,7 @@ export async function getServerSideProps(context) {
       },
     });
     const dataHistory = await axiosServer.get(
-      `transaction/history?page=1&limit=4&filter=MONTH`,
+      `transaction/history?page=1&limit=6&filter=MONTH`,
       {
         headers: {
           Authorization: `Bearer ${dataCookies.token}`,
@@ -71,8 +71,7 @@ export default function Dashboard(props) {
   return (
     <>
       {active ? <Modal setActive={setActive} /> : null}
-
-      <Layout tittle="Dashboard">
+      <Layout tittle="Dashboard" menu="dashboard">
         <div className="card text-white bg_primary">
           <div className="card-body">
             <div className="row">
@@ -100,14 +99,14 @@ export default function Dashboard(props) {
             </div>
           </div>
         </div>
-        <div className="row">
-          <div className="card col-md-6" style={{ margin: "15px" }}>
+        <div className="d-flex" style={{ marginTop: "15px", height: "65vh" }}>
+          <div className="card p-2 w-100">
             <div className="card-body">
               <h3 className="card-title">Chart</h3>
               <div className="row" style={{ margin: "50px 10px" }}>
                 <div className="col-6 text-start">
                   <IconIncome color={"#1EC15F"} />
-                  <small>INCOME</small>
+                  <small className="fw-100">INCOME</small>
                   <p>Rp.{props.dataDashboard.totalIncome}</p>
                 </div>
                 <div className="col-6 text-end">
@@ -119,48 +118,56 @@ export default function Dashboard(props) {
               <HandleChart dataDashboard={props.dataDashboard} />
             </div>
           </div>
-          <div className="card col-md-5" style={{ margin: "15px" }}>
+          <div className="card p-2 w-100" style={{ marginLeft: "15px" }}>
             <div className="card-body">
               <h5 className="card-title">Transfer History</h5>
-              {props.dataHistory.map((item) => (
-                <div className="card" key={item.id}>
-                  <div className="card-body">
-                    <div className="row">
-                      <div className="col-2">
-                        <Image
-                          src={
-                            item.image
-                              ? `${process.env.CLAUDINARY}/${item.image}`
-                              : "/assets/user.png"
-                          }
-                          alt=""
-                          width={120}
-                          height={120}
-                          style={{ margin: "20px 0px" }}
-                        />
-                      </div>
-                      <div className="col-6">
-                        <h5>
-                          {item.firstName} {item.lastName}
-                        </h5>
-                        <small>{item.type}</small>
-                      </div>
-                      <div className="col-4">
-                        <p
-                          className={
-                            item.type === "send"
-                              ? "text-end dashboard_red"
-                              : "text-end dashboard_green"
-                          }
-                        >
-                          RP. {item.amount}
-                        </p>
+              <div
+                className="overflow-auto"
+                style={{ margin: "30px 0px", maxHeight: "50vh" }}
+              >
+                {props.dataHistory.map((item) => (
+                  <div
+                    className="card"
+                    style={{ marginBottom: "10px" }}
+                    key={item.id}
+                  >
+                    <div className="card-body">
+                      <div className="row">
+                        <div className="col-2">
+                          <Image
+                            src={
+                              item.image
+                                ? `${process.env.CLAUDINARY}/${item.image}`
+                                : "/assets/user.png"
+                            }
+                            alt=""
+                            width={120}
+                            height={120}
+                            style={{ margin: "20px 0px" }}
+                          />
+                        </div>
+                        <div className="col-6">
+                          <h5>
+                            {item.firstName} {item.lastName}
+                          </h5>
+                          <small>{item.type}</small>
+                        </div>
+                        <div className="col-4">
+                          <p
+                            className={
+                              item.type === "send"
+                                ? "text-end dashboard_red"
+                                : "text-end dashboard_green"
+                            }
+                          >
+                            RP. {item.amount}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
-              <br />
+                ))}
+              </div>
             </div>
           </div>
         </div>

@@ -7,35 +7,27 @@ import Head from "next/head";
 export default function Layout(props) {
   return (
     <>
-      <Head>
-        <title>{props.title}</title>
-      </Head>
-      <div
-        className="project_background"
-        style={{ height: "900px", paddingBottom: "40px" }}
-      >
-        <Navbar />
-        <div className="container">
-          <div className="row" style={{ marginTop: "40px" }}>
-            <div className="col-md-3">
-              <Sidebar />
-            </div>
-            <div className="col-md-9" style={{ maxHeight: "100%" }}>
-              {props.children}
+      <div className="project_background">
+        <Head>
+          <title>{props.title}</title>
+        </Head>
+        <main>
+          <Navbar />
+          <div
+            className="container"
+            style={{
+              padding: "40px 0px",
+            }}
+          >
+            <div className="row" style={{ minHeight: "80vh" }}>
+              <div className="col-md-3">
+                <Sidebar menu={props.menu} />
+              </div>
+              <div className="col-md-9">{props.children}</div>
             </div>
           </div>
-        </div>
-        <footer
-          className="footer mt-auto py-3 bg_primary"
-          style={{
-            position: "absolute",
-            width: "100%",
-            left: "0",
-            bottom: "0",
-          }}
-        >
-          <Footer />
-        </footer>
+        </main>
+        <Footer />
       </div>
     </>
   );

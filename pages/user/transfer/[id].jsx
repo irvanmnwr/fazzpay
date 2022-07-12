@@ -91,21 +91,21 @@ export default function transferUser(props) {
           setTransfer={setTransfer}
         />
       ) : null}
-      <Layout tittle="Dashboard">
-        {!message ? null : isError ? (
-          <div className="alert alert-danger" role="alert">
-            {message}
-          </div>
-        ) : (
-          <div className="alert alert-primary" role="alert">
-            {message}
-          </div>
-        )}
-        <div className="card">
+      <Layout tittle="Dashboard" menu="transfer">
+        <div className="card" style={{ padding: "20px 0px", height: "100%" }}>
           <div className="card-body">
-            <h4>Transfer To</h4>
+            {!message ? null : isError ? (
+              <div className="alert alert-danger" role="alert">
+                {message}
+              </div>
+            ) : (
+              <div className="alert alert-primary" role="alert">
+                {message}
+              </div>
+            )}
+            <h4 style={{ marginLeft: "20px" }}>Transfer To</h4>
             <br />
-            <div className="card" style={{ height: "100%" }}>
+            <div className="card mx-3">
               <div className="card-body">
                 <div className="row">
                   <div className="col-1">
@@ -132,16 +132,17 @@ export default function transferUser(props) {
             </div>
             {isSubmit === false ? (
               <>
-                <div>
-                  <small>
+                <div style={{ marginTop: "20px" }}>
+                  <small className="mx-3 fs-6">
                     Type the amount you want to transfer and then press continue
                     to the next steps.
                   </small>
                 </div>
-                <br />
-                <br />
-                <div className="col-4 text-center">
-                  <h2>
+                <div
+                  className="col-4 text-center"
+                  style={{ height: "50vh", paddingTop: "15%" }}
+                >
+                  <h1>
                     <input
                       type="text"
                       name="amount"
@@ -152,9 +153,8 @@ export default function transferUser(props) {
                       placeholder="00.000"
                       onChange={handleChangeText}
                     />
-                  </h2>
-                  <br />
-                  <h5>
+                  </h1>
+                  <h3>
                     <input
                       type="text"
                       className="form-control-plaintext text-center"
@@ -165,11 +165,9 @@ export default function transferUser(props) {
                       placeholder="Add some Notes"
                       onChange={handleChangeText}
                     />
-                  </h5>
+                  </h3>
                 </div>
-                <br />
-                <br />
-                <div className="text-end">
+                <div className="text-end mx-3">
                   <button
                     className="btn btn-primary"
                     onClick={() => handleSubmit()}
@@ -180,26 +178,26 @@ export default function transferUser(props) {
               </>
             ) : (
               <>
-                <h4>Detail</h4>
-                <div className="card" style={{ height: "100%" }}>
+                <h4 style={{ margin: "20px" }}>Detail</h4>
+                <div className="card mx-3" style={{ marginBottom: "20px" }}>
                   <div className="card-body">
                     <p>Amount</p>
                     <h6>Rp. {form.amount}</h6>
                   </div>
                 </div>
-                <div className="card" style={{ height: "100%" }}>
+                <div className="card mx-3" style={{ marginBottom: "20px" }}>
                   <div className="card-body">
                     <p>Balance Left</p>
                     <h6>Rp. {balance.balance - form.amount}</h6>
                   </div>
                 </div>
-                <div className="card" style={{ height: "100%" }}>
+                <div className="card mx-3" style={{ marginBottom: "20px" }}>
                   <div className="card-body">
                     <p>Date and time</p>
                     {/* <h6>{date}</h6> */}
                   </div>
                 </div>
-                <div className="card" style={{ height: "100%" }}>
+                <div className="card mx-3" style={{ marginBottom: "20px" }}>
                   <div className="card-body">
                     <p>Notes</p>
                     <h6>{form.notes}</h6>

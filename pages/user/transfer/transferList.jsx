@@ -77,11 +77,14 @@ export default function transferList(props) {
 
   return (
     <>
-      <Layout tittle="Dashboard">
-        <div className="card">
+      <Layout tittle="Dashboard" menu="transfer">
+        <div className="card" style={{ padding: "20px 0px", height: "100%" }}>
           <div className="card-body">
-            <h4>Search Receiver</h4>
-            <div className="input-group mb-3" style={{ margin: "20px 0px" }}>
+            <h4 style={{ marginLeft: "20px" }}>Search Receiver</h4>
+            <div
+              className="input-group mb-3 px-3"
+              style={{ margin: "20px 0px" }}
+            >
               <span className="input-group-text" id="basic-addon1">
                 @
               </span>
@@ -93,13 +96,11 @@ export default function transferList(props) {
                 onKeyPress={handleChangeSearch}
               ></input>
             </div>
-            <div
-              className="overflow-auto"
-              style={{ padding: "10px", height: "530px" }}
-            >
+            <div className="overflow-auto" style={{ padding: "10px" }}>
               {props.data.map((item) => (
                 <div
                   className="card"
+                  style={{ marginBottom: "20px" }}
                   key={item.id}
                   onClick={() => handleTransfer(item.id)}
                 >

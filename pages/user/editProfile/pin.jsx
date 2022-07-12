@@ -62,8 +62,8 @@ export default function Password() {
 
   return (
     <>
-      <Layout tittle="Dashboard">
-        <div className="card" style={{ height: "100%" }}>
+      <Layout tittle="Dashboard" menu="Profile">
+        <div className="card" style={{ padding: "20px 0px", height: "100%" }}>
           <div className="card-body">
             {!message ? null : isError ? (
               <div className="alert alert-danger" role="alert">
@@ -74,20 +74,17 @@ export default function Password() {
                 {message}
               </div>
             )}
-            <h4>Change Pin</h4>
-            <br />
-            <div>
-              <p>
+            <h4 style={{ marginLeft: "20px" }}>Change Pin</h4>
+            <div style={{ marginLeft: "20px" }}>
+              <small>
                 Enter your current 6 digits Zwallet PIN below to continue to the
                 next steps.
-              </p>
+              </small>
             </div>
-            <br />
-            <br />
             {pinCorrect === false ? (
               <>
-                <div className="row">
-                  <div className="col-4"> </div>
+                <div className="row" style={{ marginTop: "20%" }}>
+                  <div className="col-4"></div>
                   <div className="col-4 text-center">
                     <div className="row text-center">
                       <div className="col-2">
@@ -197,7 +194,7 @@ export default function Password() {
                     <br />
                     <div className="text-center">
                       <button
-                        className="btn btn-primary col-12"
+                        className="btn btn-secondary gap-2 col-12"
                         onClick={() => onSubmit()}
                       >
                         Continue

@@ -44,9 +44,9 @@ export default function Password() {
 
   return (
     <>
-      <Layout tittle="Dashboard">
-        <div className="card" style={{ height: "700px" }}>
-          <div className="card-body">
+      <Layout tittle="Dashboard" menu="Profile">
+        <div className="card" style={{ padding: "20px 0px", height: "100%" }}>
+          <div className="card-body" style={{ margin: " 0px 20px" }}>
             {!message ? null : isError ? (
               <div className="alert alert-danger" role="alert">
                 {message}
@@ -56,22 +56,18 @@ export default function Password() {
                 {message}
               </div>
             )}
-            <h4>Personal Information</h4>
-            <br />
-            <br />
-            <div className="col-6">
+            <h4 style={{ marginLeft: "20px" }}>Personal Information</h4>
+            <div style={{ marginLeft: "20px" }} className="col-6 my-4">
               <small>
                 We got your personal information from the sign up proccess. If
                 you want to make changes on your information, contact our
                 support.
               </small>
             </div>
-            <br />
-            <br />
             {edit === false ? (
               <>
                 {" "}
-                <div className="card">
+                <div className="card" style={{ marginBottom: "15px" }}>
                   <div className="card-body">
                     <div className="row">
                       <div className="col-10">
@@ -82,7 +78,7 @@ export default function Password() {
                     </div>
                   </div>
                 </div>
-                <div className="card">
+                <div className="card" style={{ marginBottom: "15px" }}>
                   <div className="card-body">
                     <div className="row">
                       <div className="col-10">
@@ -93,7 +89,7 @@ export default function Password() {
                     </div>
                   </div>
                 </div>
-                <div className="card">
+                <div className="card" style={{ marginBottom: "15px" }}>
                   <div className="card-body">
                     <div className="row">
                       <div className="col-10">
@@ -104,7 +100,7 @@ export default function Password() {
                     </div>
                   </div>
                 </div>
-                <div className="card">
+                <div className="card" style={{ marginBottom: "15px" }}>
                   <div className="card-body">
                     <div className="row">
                       <div className="col-10">
@@ -126,9 +122,7 @@ export default function Password() {
               </>
             ) : (
               <>
-                <br />
-                <br />
-                <div className="col-4 text-center">
+                <div className="col-4 text-center my-5">
                   <h5>
                     <input
                       type="text"
@@ -139,16 +133,14 @@ export default function Password() {
                         borderBottomColor: "gray",
                       }}
                       name="noTelp"
-                      placeholder="repeat new Password"
+                      placeholder="Input new number"
                       onChange={handleChangeText}
                     />
                   </h5>
-                  <br />
-                  <br />
                 </div>
                 <div className="text-center">
                   <button
-                    className="btn btn-primary col-6"
+                    className="btn btn-secondary gap-2 col-6"
                     onClick={() => handleSubmit()}
                   >
                     Change Phone Number
@@ -156,9 +148,6 @@ export default function Password() {
                 </div>
               </>
             )}
-
-            <br />
-            <br />
           </div>
         </div>
       </Layout>

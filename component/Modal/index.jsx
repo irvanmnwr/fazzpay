@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "../../utils/axios";
 
 export default function Modal(props) {
@@ -10,11 +10,16 @@ export default function Modal(props) {
   const handleChangeText = (e) => {
     setTopUp({ ...topUp, [e.target.name]: e.target.value });
   };
-
+  console.log(topUp);
   const handleTopUp = async () => {
-    const result = await axios.post("/transaction/top-up", topUp);
-    setIsOpens(false);
-    window.open(result.data.data.redirectUrl);
+    try {
+      const result = await axios.post("/transaction/top-up", topUp);
+      console.log(result);
+      setActive();
+      window.open(result.data.data.redirectUrl);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <>
@@ -43,11 +48,11 @@ export default function Modal(props) {
                 padding: "10px 10px",
               }}
               placeholder="00.000"
-              onChange={() => handleChangeText}
+              onChange={handleChangeText}
             />
             <br />
             <div className="text-end">
-              <button className="btn btn-primary" onClick={() => handleTopUp}>
+              <button className="btn btn-primary" onClick={handleTopUp}>
                 Submit
               </button>
             </div>

@@ -36,9 +36,9 @@ export default function Password() {
 
   return (
     <>
-      <Layout tittle="Dashboard">
-        <div className="card">
-          <div className="card-body">
+      <Layout tittle="Dashboard" menu="Profile">
+        <div className="card" style={{ padding: "20px 0px", height: "100%" }}>
+          <div className="card-body" style={{ marginLeft: "20px" }}>
             {!message ? null : isError ? (
               <div className="alert alert-danger" role="alert">
                 {message}
@@ -48,17 +48,14 @@ export default function Password() {
                 {message}
               </div>
             )}
-            <h4>Change Password</h4>
-            <br />
+            <h4 style={{ marginLeft: "20px" }}>Change Password</h4>
             <div>
-              <p>
+              <small style={{ marginLeft: "20px" }}>
                 You must enter your current password and then type your new
                 password twice.
-              </p>
+              </small>
             </div>
-            <br />
-            <br />
-            <div className="col-4 text-center">
+            <div className="col-4 text-center my-5">
               <h5>
                 <input
                   type="password"
@@ -73,7 +70,6 @@ export default function Password() {
                   onChange={handleChangeText}
                 />
               </h5>
-              <br />
               <h5>
                 <input
                   type="password"
@@ -88,7 +84,6 @@ export default function Password() {
                   onChange={handleChangeText}
                 />
               </h5>
-              <br />
               <h5>
                 <input
                   type="password"
@@ -103,19 +98,15 @@ export default function Password() {
                   onChange={handleChangeText}
                 />
               </h5>
-              <br />
-              <br />
             </div>
             <div className="text-center">
               <button
-                className="btn btn-primary col-6"
+                className="btn btn-secondary gap-2 col-6"
                 onClick={() => handleSubmit()}
               >
                 Change Password
               </button>
             </div>
-            <br />
-            <br />
           </div>
         </div>
       </Layout>

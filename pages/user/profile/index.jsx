@@ -107,13 +107,9 @@ export default function Profile(props) {
 
   return (
     <>
-      <Layout tittle="Dashboard">
-        <div className="card">
+      <Layout tittle="Dashboard" menu="Profile">
+        <div className="card" style={{ padding: "20px 0px", height: "100%" }}>
           <div className="card-body">
-            <h4>Search Receiver</h4>
-            <br />
-            <br />
-            <br />
             {!message ? null : isError ? (
               <div className="alert alert-danger" role="alert">
                 {message}
@@ -123,7 +119,8 @@ export default function Profile(props) {
                 {message}
               </div>
             )}
-            <div className="row">
+            <h4 style={{ marginLeft: "20px" }}>Profile</h4>
+            <div className="row" style={{ marginTop: "80px" }}>
               <div className="col-5"></div>
               <div className="col-2 text-center">
                 <Image

@@ -9,9 +9,9 @@ import axios from "../../utils/axios";
 import Cookies from "js-cookie";
 import Modal from "../Modal";
 
-export default function Sidebar() {
+export default function Sidebar(props) {
   const router = useRouter();
-  const [menuActive, setMenuActive] = useState("dashboard");
+  const [menuActive, setMenuActive] = useState(props.menu);
   const [active, setActive] = useState(false);
 
   const handleLogout = async () => {
@@ -29,7 +29,7 @@ export default function Sidebar() {
     <>
       {active ? <Modal setActive={setActive} /> : null}
       <div
-        id="sidebarMenu"
+        style={{ minHeight: "80vh" }}
         className="col-lg-12 d-md-block bg-white sidebar_style"
       >
         <div className="position-sticky pt-3">
